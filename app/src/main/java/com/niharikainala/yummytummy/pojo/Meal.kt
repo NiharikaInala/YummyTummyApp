@@ -7,9 +7,5 @@ import androidx.room.PrimaryKey
 data class Meal(
     val idMeal: String,
     val strMeal: String,
-    val strMealThumb: String,
-    val strArea: String,
-    val strCategory: String,
-    val mealInstruction:String,
-    val strYoutube: String
+    val strMealThumb: String
 )

@@ -6,7 +6,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.niharikainala.yummytummy.pojo.Category
 import com.niharikainala.yummytummy.pojo.CategoryList
-import com.niharikainala.yummytummy.pojo.MealsByCategory
 import com.niharikainala.yummytummy.pojo.MealsByCategoryList
 import com.niharikainala.yummytummy.pojo.Meal
 import com.niharikainala.yummytummy.pojo.MealList
@@ -16,16 +15,15 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class HomeViewModel() : ViewModel() {
-    private var randomMealLiveData = MutableLiveData<Meal>()
-    private var popularMealLiveData = MutableLiveData<List<MealsByCategory>>()
+    private var randomMealLiveData = MutableLiveData<MealList>()
+    private var popularMealLiveData = MutableLiveData<MealsByCategoryList>()
     private var categoritMealLiveData = MutableLiveData<List<Category>>()
 
     fun getRandomMeal() {
         RetrofitInstance.api.getRandomMeal().enqueue(object : Callback<MealList> {
             override fun onResponse(call: Call<MealList>, response: Response<MealList>) {
                 if (response.body() != null) {
-                    val randomMeal: Meal = response.body()!!.meals[0]
-                    randomMealLiveData.value = randomMeal
+                    randomMealLiveData.value = response.body()
                 } else {
                     return
                 }
@@ -45,7 +43,7 @@ class HomeViewModel() : ViewModel() {
                     response: Response<MealsByCategoryList>
                 ) {
                     if (response.body() != null) {
-                        popularMealLiveData.value = response.body()!!.categories
+                        popularMealLiveData.value = response.body()
 
                     } else {
                         return
@@ -62,7 +60,7 @@ class HomeViewModel() : ViewModel() {
         RetrofitInstance.api.getCategories().enqueue(object : Callback<CategoryList> {
             override fun onResponse(call: Call<CategoryList>, response: Response<CategoryList>) {
                 if (response.body() != null) {
-                    categoritMealLiveData.value = response.body()!!.categoryList
+                    categoritMealLiveData.value = response.body()!!.categories
                 } else {
                     return
                 }
@@ -78,11 +76,11 @@ class HomeViewModel() : ViewModel() {
         return categoritMealLiveData
     }
 
-    fun observePopularMealLiveData(): LiveData<List<MealsByCategory>> {
+    fun observePopularMealLiveData(): LiveData<MealsByCategoryList> {
         return popularMealLiveData
     }
 
-    fun observeRandomMealLivedata(): LiveData<Meal> {
+    fun observeRandomMealLivedata(): LiveData<MealList> {
         return randomMealLiveData
     }
 }

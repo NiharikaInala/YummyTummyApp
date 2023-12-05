@@ -4,6 +4,7 @@ import android.content.Intent
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -12,7 +13,9 @@ import com.niharikainala.yummytummy.R
 import com.niharikainala.yummytummy.databinding.ActivityMealBinding
 import com.niharikainala.yummytummy.fragments.HomeFragment
 import com.niharikainala.yummytummy.pojo.Meal
+import com.niharikainala.yummytummy.pojo.MealDB
 import com.niharikainala.yummytummy.pojo.MealDetail
+import com.niharikainala.yummytummy.pojo.MealList
 import com.niharikainala.yummytummy.viewmodel.MealViewModel
 
 class MealActivity : AppCompatActivity() {
@@ -31,7 +34,7 @@ class MealActivity : AppCompatActivity() {
         mealMvvm = ViewModelProviders.of(this)[MealViewModel::class.java]
         getMealInfoFromIntent()
         setInfoInViews()
-        loadingCase()
+        //loadingCase()
         mealMvvm.getMealDetailById(mealId)
         observeMealDetailLiveData()
 
@@ -46,16 +49,15 @@ class MealActivity : AppCompatActivity() {
     }
 
     private fun observeMealDetailLiveData(){
-        mealMvvm.observeMealDetailLiveData().observe(this, object: Observer<Meal> {
-            override fun onChanged(value: Meal) {
-                onResponseCase()
-                val meal = value
-                binding.tvCategoryInfo.text = "Category : ${meal.strCategory}"
-                binding.tvAreaInfo.text = "Area : ${meal.strMeal}"
-                binding.tvInstructions.text = meal.mealInstruction
-                youtubeLink = meal.strYoutube
-            }
-        })
+        mealMvvm.observeMealDetailLiveData().observe(this
+        ) { value -> //onResponseCase()
+            val meal = value
+            binding.tvCategoryInfo.text = "Category : ${meal.meals[0].strCategory}"
+            binding.tvAreaInfo.text = "Area : ${meal.meals[0].strArea}"
+            binding.tvInstructions.text = meal.meals[0].strInstructions
+            youtubeLink = meal.meals[0].strYoutube
+            Log.d("*****", meal.toString())
+        }
     }
 
     private fun setInfoInViews(){

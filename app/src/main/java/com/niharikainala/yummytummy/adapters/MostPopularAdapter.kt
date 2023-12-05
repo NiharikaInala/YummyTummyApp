@@ -5,15 +5,20 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.niharikainala.yummytummy.databinding.PopularItemsBinding
-import com.niharikainala.yummytummy.pojo.MealsByCategory
+import com.niharikainala.yummytummy.pojo.Category
+import com.niharikainala.yummytummy.pojo.Meal
+import com.niharikainala.yummytummy.pojo.MealsByCategoryList
 
 class MostPopularAdapter():RecyclerView.Adapter<MostPopularAdapter.PopularMealViewHolder>() {
-    lateinit var onItemClick : ((MealsByCategory) -> Unit)
-    private var mealList =  ArrayList<MealsByCategory>()
+    private lateinit var onItemClick: OnItemClick
+    private var mealList : List<Meal> = ArrayList()
 
-    fun setMeals(mealsList:ArrayList<MealsByCategory>){
+    fun setMeals(mealsList:List<Meal>){
         this.mealList = mealsList
         notifyDataSetChanged()
+    }
+    fun setOnClickListener(onItemClick: OnItemClick){
+        this.onItemClick = onItemClick
     }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PopularMealViewHolder {
         return PopularMealViewHolder(PopularItemsBinding.inflate(LayoutInflater.from(parent.context),parent,false
@@ -22,11 +27,11 @@ class MostPopularAdapter():RecyclerView.Adapter<MostPopularAdapter.PopularMealVi
 
     override fun onBindViewHolder(holder: PopularMealViewHolder, position: Int) {
         Glide.with(holder.itemView)
-            .load(mealList[position].strCategoryThumb)
+            .load(mealList[position].strMealThumb)
             .into(holder.binding.imgPopularMealItem)
 
         holder.itemView.setOnClickListener {
-            onItemClick.invoke(mealList[position])
+            onItemClick.onItemClick(mealList[position])
         }
     }
 
@@ -36,5 +41,9 @@ class MostPopularAdapter():RecyclerView.Adapter<MostPopularAdapter.PopularMealVi
 
     class PopularMealViewHolder(val binding:PopularItemsBinding):RecyclerView.ViewHolder(binding.root){
 
+    }
+
+    interface OnItemClick{
+        fun onItemClick(meal: Meal)
     }
 }

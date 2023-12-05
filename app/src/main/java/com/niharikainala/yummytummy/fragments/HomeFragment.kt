@@ -17,8 +17,9 @@ import com.niharikainala.yummytummy.adapters.CategoriesAdapter
 import com.niharikainala.yummytummy.adapters.MostPopularAdapter
 import com.niharikainala.yummytummy.databinding.FragmentHomeBinding
 import com.niharikainala.yummytummy.pojo.Category
-import com.niharikainala.yummytummy.pojo.MealsByCategory
 import com.niharikainala.yummytummy.pojo.Meal
+import com.niharikainala.yummytummy.pojo.MealList
+import com.niharikainala.yummytummy.pojo.MealsByCategoryList
 import com.niharikainala.yummytummy.viewmodel.HomeViewModel
 
 
@@ -26,7 +27,7 @@ class HomeFragment : Fragment() {
 
     private lateinit var binding: FragmentHomeBinding
     private lateinit var homeMvvm: HomeViewModel
-    private lateinit var randomMeal: Meal
+    private lateinit var randomMeal: MealList
     private lateinit var popularItemsAdapter: MostPopularAdapter
     private lateinit var categoryMealAdapter: CategoriesAdapter
 
@@ -63,7 +64,7 @@ class HomeFragment : Fragment() {
         observeRandomMeal()
         onRandomMealClick()
 
-        homeMvvm.getPopularItems("seafood")
+        homeMvvm.getPopularItems("beef")
         observePopularItemLiveData()
         onPopularItemClick()
 
@@ -88,30 +89,34 @@ class HomeFragment : Fragment() {
     }
 
     private fun onPopularItemClick() {
-        popularItemsAdapter.onItemClick = { meal ->
-            val intent = Intent(activity, MealActivity::class.java)
-            intent.putExtra(MEAL_ID, meal.idCategory)
-            intent.putExtra(MEAL_NAME, meal.strCategory)
-            intent.putExtra(MEAL_THUMB, meal.strCategoryThumb)
-            startActivity(intent)
-        }
+        popularItemsAdapter.setOnClickListener(
+            object : MostPopularAdapter.OnItemClick {
+                override fun onItemClick(meal: Meal) {
+                    val intent = Intent(activity, MealActivity::class.java)
+                    intent.putExtra(MEAL_ID, meal.idMeal)
+                    intent.putExtra(MEAL_NAME, meal.strMeal)
+                    intent.putExtra(MEAL_THUMB, meal.strMealThumb)
+                    startActivity(intent)
+                }
+
+            })
     }
 
     private fun onRandomMealClick() {
         binding.randomMeal.setOnClickListener {
-            val intent = Intent(activity, MainActivity::class.java)
-            intent.putExtra(MEAL_ID, randomMeal.idMeal)
-            intent.putExtra(MEAL_NAME, randomMeal.strMeal)
-            intent.putExtra(MEAL_THUMB, randomMeal.strMealThumb)
+            val intent = Intent(activity, MealActivity::class.java)
+            intent.putExtra(MEAL_ID, randomMeal.meals[0].idMeal)
+            intent.putExtra(MEAL_NAME, randomMeal.meals[0].strMeal)
+            intent.putExtra(MEAL_THUMB, randomMeal.meals[0].strMealThumb)
             startActivity(intent)
         }
     }
 
     private fun observeRandomMeal() {
-        homeMvvm.observeRandomMealLivedata().observe(viewLifecycleOwner, object : Observer<Meal> {
-            override fun onChanged(value: Meal) {
+        homeMvvm.observeRandomMealLivedata().observe(viewLifecycleOwner, object : Observer<MealList> {
+            override fun onChanged(value: MealList) {
                 Glide.with(this@HomeFragment)
-                    .load(value.strMealThumb)
+                    .load(value.meals[0].strMealThumb)
                     .into(binding.imgRandomMeal)
                 this@HomeFragment.randomMeal = value
             }
@@ -120,11 +125,15 @@ class HomeFragment : Fragment() {
 
     private fun observePopularItemLiveData() {
         homeMvvm.observePopularMealLiveData()
-            .observe(viewLifecycleOwner, object : Observer<List<MealsByCategory>> {
-                override fun onChanged(value: List<MealsByCategory>) {
-                    popularItemsAdapter.setMeals(value as ArrayList)
+            .observe(viewLifecycleOwner, object : Observer<MealsByCategoryList> {
+                override fun onChanged(value: MealsByCategoryList) {
+                    val meals = value.meals
+                    setMealsByCategoryAdapter(meals)
                 }
             })
+    }
+    private fun setMealsByCategoryAdapter(meals: List<Meal>) {
+        popularItemsAdapter.setMeals(meals)
     }
 
     private fun preparePouplarItemsRecyclerView() {
