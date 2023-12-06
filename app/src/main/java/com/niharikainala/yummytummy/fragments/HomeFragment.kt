@@ -11,6 +11,7 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
+import com.niharikainala.yummytummy.activities.CategoryMealActivity
 import com.niharikainala.yummytummy.activities.MainActivity
 import com.niharikainala.yummytummy.activities.MealActivity
 import com.niharikainala.yummytummy.adapters.CategoriesAdapter
@@ -35,6 +36,7 @@ class HomeFragment : Fragment() {
         const val MEAL_ID = "com.niharikainala.yummytummy.fragments.idMeal"
         const val MEAL_NAME = "com.niharikainala.yummytummy.fragments.nameMeal"
         const val MEAL_THUMB = "com.niharikainala.yummytummy.fragments.thumbMeal"
+        const val CATEGORY_NAME = "com.niharikainala.yummytummy.fragments.categoryName"
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -85,7 +87,14 @@ class HomeFragment : Fragment() {
     }
 
     private fun onCategoryMealClick() {
+        categoryMealAdapter.onItemClicked(object : CategoriesAdapter.OnItemCategoryClicked{
+            override fun onClickListener(category: Category) {
+                val intent = Intent(activity, CategoryMealActivity::class.java)
+                intent.putExtra(CATEGORY_NAME, category.strCategory)
+                startActivity(intent)
+            }
 
+        })
     }
 
     private fun onPopularItemClick() {
