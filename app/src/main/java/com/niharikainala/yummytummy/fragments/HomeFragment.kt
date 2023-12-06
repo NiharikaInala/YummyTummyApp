@@ -41,7 +41,8 @@ class HomeFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        homeMvvm = ViewModelProviders.of(this)[HomeViewModel::class.java]
+        homeMvvm = (activity as MainActivity).viewModel
+        //homeMvvm = ViewModelProviders.of(this)[HomeViewModel::class.java]
         popularItemsAdapter = MostPopularAdapter()
         categoryMealAdapter = CategoriesAdapter()
     }

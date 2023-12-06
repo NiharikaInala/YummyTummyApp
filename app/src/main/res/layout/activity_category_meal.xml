@@ -43,6 +43,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            tools:listitem="@layout/meal_card" />
+            tools:listitem="@layout/meal_item" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

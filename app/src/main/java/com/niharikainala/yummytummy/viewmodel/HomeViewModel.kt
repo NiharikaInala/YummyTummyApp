@@ -4,20 +4,23 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.niharikainala.yummytummy.db.MealDatabase
 import com.niharikainala.yummytummy.pojo.Category
 import com.niharikainala.yummytummy.pojo.CategoryList
 import com.niharikainala.yummytummy.pojo.MealsByCategoryList
 import com.niharikainala.yummytummy.pojo.Meal
+import com.niharikainala.yummytummy.pojo.MealDetail
 import com.niharikainala.yummytummy.pojo.MealList
 import com.niharikainala.yummytummy.retrofit.RetrofitInstance
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class HomeViewModel() : ViewModel() {
+class HomeViewModel(private val mealDatabase: MealDatabase) : ViewModel() {
     private var randomMealLiveData = MutableLiveData<MealList>()
     private var popularMealLiveData = MutableLiveData<MealsByCategoryList>()
     private var categoritMealLiveData = MutableLiveData<List<Category>>()
+    private var favMealsLiveData = mealDatabase.mealDao().getAllMeals()
 
     fun getRandomMeal() {
         RetrofitInstance.api.getRandomMeal().enqueue(object : Callback<MealList> {
@@ -82,5 +85,9 @@ class HomeViewModel() : ViewModel() {
 
     fun observeRandomMealLivedata(): LiveData<MealList> {
         return randomMealLiveData
+    }
+
+    fun observeFavMealsLiveData():LiveData<List<MealDetail>>{
+      return favMealsLiveData
     }
 }

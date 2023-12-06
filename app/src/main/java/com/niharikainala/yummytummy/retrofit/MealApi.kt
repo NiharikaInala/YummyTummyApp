@@ -1,7 +1,6 @@
 package com.niharikainala.yummytummy.retrofit
 
 import com.niharikainala.yummytummy.pojo.CategoryList
-import com.niharikainala.yummytummy.pojo.MealDB
 import com.niharikainala.yummytummy.pojo.MealsByCategoryList
 import com.niharikainala.yummytummy.pojo.MealList
 import retrofit2.Call
