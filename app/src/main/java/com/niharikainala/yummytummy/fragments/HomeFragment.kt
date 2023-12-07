@@ -17,6 +17,7 @@ import com.niharikainala.yummytummy.activities.MealActivity
 import com.niharikainala.yummytummy.adapters.CategoriesAdapter
 import com.niharikainala.yummytummy.adapters.MostPopularAdapter
 import com.niharikainala.yummytummy.databinding.FragmentHomeBinding
+import com.niharikainala.yummytummy.fragments.bottomsheet.BottomSheetFragment
 import com.niharikainala.yummytummy.pojo.Category
 import com.niharikainala.yummytummy.pojo.Meal
 import com.niharikainala.yummytummy.pojo.MealList
@@ -74,6 +75,7 @@ class HomeFragment : Fragment() {
         homeMvvm.getCategoryMeals()
         observeCategoryMealLiveData()
         onCategoryMealClick()
+        onPopularItemLongClick()
 
 
     }
@@ -96,6 +98,18 @@ class HomeFragment : Fragment() {
             }
 
         })
+    }
+
+    private fun onPopularItemLongClick(){
+        popularItemsAdapter.setOnLongClickListner(
+            object:MostPopularAdapter.OnItemLongClick{
+                override fun onItemLongClick(meal: Meal) {
+                    val bottomSheetFragment = BottomSheetFragment.newInstance(meal.idMeal)
+                    bottomSheetFragment.show(childFragmentManager,"Meal_Info")
+                }
+
+            }
+        )
     }
 
     private fun onPopularItemClick() {

@@ -11,6 +11,7 @@ import com.niharikainala.yummytummy.pojo.MealsByCategoryList
 
 class MostPopularAdapter():RecyclerView.Adapter<MostPopularAdapter.PopularMealViewHolder>() {
     private lateinit var onItemClick: OnItemClick
+    private lateinit var onItemLongClick : OnItemLongClick
     private var mealList : List<Meal> = ArrayList()
 
     fun setMeals(mealsList:List<Meal>){
@@ -20,6 +21,11 @@ class MostPopularAdapter():RecyclerView.Adapter<MostPopularAdapter.PopularMealVi
     fun setOnClickListener(onItemClick: OnItemClick){
         this.onItemClick = onItemClick
     }
+
+    fun setOnLongClickListner(onItemLongClick: OnItemLongClick){
+        this.onItemLongClick = onItemLongClick
+    }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PopularMealViewHolder {
         return PopularMealViewHolder(PopularItemsBinding.inflate(LayoutInflater.from(parent.context),parent,false
         ))
@@ -33,6 +39,10 @@ class MostPopularAdapter():RecyclerView.Adapter<MostPopularAdapter.PopularMealVi
         holder.itemView.setOnClickListener {
             onItemClick.onItemClick(mealList[position])
         }
+        holder.itemView.setOnLongClickListener {
+            onItemLongClick.onItemLongClick(mealList[position])
+             true
+        }
     }
 
     override fun getItemCount(): Int {
@@ -45,5 +55,8 @@ class MostPopularAdapter():RecyclerView.Adapter<MostPopularAdapter.PopularMealVi
 
     interface OnItemClick{
         fun onItemClick(meal: Meal)
+    }
+    interface  OnItemLongClick{
+        fun onItemLongClick(meal:Meal)
     }
 }
