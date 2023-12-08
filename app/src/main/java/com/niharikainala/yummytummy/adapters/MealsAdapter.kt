@@ -1,5 +1,6 @@
 package com.niharikainala.yummytummy.adapters
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
@@ -9,7 +10,7 @@ import com.bumptech.glide.Glide
 import com.niharikainala.yummytummy.databinding.MealItemBinding
 import com.niharikainala.yummytummy.pojo.MealDetail
 
-class FavoriteMealsAdapter: RecyclerView.Adapter<FavoriteMealsAdapter.FavoriteMealsViewHolder>() {
+class MealsAdapter: RecyclerView.Adapter<MealsAdapter.FavoriteMealsViewHolder>() {
 
     private val diffUtil = object : DiffUtil.ItemCallback<MealDetail>(){
         override fun areItemsTheSame(oldItem: MealDetail, newItem: MealDetail): Boolean {
@@ -27,14 +28,16 @@ class FavoriteMealsAdapter: RecyclerView.Adapter<FavoriteMealsAdapter.FavoriteMe
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ): FavoriteMealsAdapter.FavoriteMealsViewHolder {
+    ): MealsAdapter.FavoriteMealsViewHolder {
     return FavoriteMealsViewHolder(MealItemBinding.inflate(LayoutInflater.from(parent.context),parent,false))
     }
 
+    @SuppressLint("SuspiciousIndentation")
     override fun onBindViewHolder(
-        holder: FavoriteMealsAdapter.FavoriteMealsViewHolder,
+        holder: MealsAdapter.FavoriteMealsViewHolder,
         position: Int
     ) {
+
     val meal = differ.currentList[position]
         Glide.with(holder.itemView)
             .load(meal.strMealThumb)

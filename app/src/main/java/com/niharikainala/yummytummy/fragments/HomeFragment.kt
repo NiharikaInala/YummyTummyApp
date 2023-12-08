@@ -8,9 +8,11 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
+import com.niharikainala.yummytummy.R
 import com.niharikainala.yummytummy.activities.CategoryMealActivity
 import com.niharikainala.yummytummy.activities.MainActivity
 import com.niharikainala.yummytummy.activities.MealActivity
@@ -20,6 +22,7 @@ import com.niharikainala.yummytummy.databinding.FragmentHomeBinding
 import com.niharikainala.yummytummy.fragments.bottomsheet.BottomSheetFragment
 import com.niharikainala.yummytummy.pojo.Category
 import com.niharikainala.yummytummy.pojo.Meal
+import com.niharikainala.yummytummy.pojo.MealDetail
 import com.niharikainala.yummytummy.pojo.MealList
 import com.niharikainala.yummytummy.pojo.MealsByCategoryList
 import com.niharikainala.yummytummy.viewmodel.HomeViewModel
@@ -29,7 +32,7 @@ class HomeFragment : Fragment() {
 
     private lateinit var binding: FragmentHomeBinding
     private lateinit var homeMvvm: HomeViewModel
-    private lateinit var randomMeal: MealList
+    private lateinit var randomMeal: MealDetail
     private lateinit var popularItemsAdapter: MostPopularAdapter
     private lateinit var categoryMealAdapter: CategoriesAdapter
 
@@ -64,7 +67,7 @@ class HomeFragment : Fragment() {
         prepareCategoryRecyclerView()
 
 
-        homeMvvm.getRandomMeal()
+       homeMvvm.getRandomMeal()
         observeRandomMeal()
         onRandomMealClick()
 
@@ -77,7 +80,14 @@ class HomeFragment : Fragment() {
         onCategoryMealClick()
         onPopularItemLongClick()
 
+        onSearchIconClick()
 
+    }
+
+    private fun onSearchIconClick(){
+        binding.imgSearch.setOnClickListener {
+            findNavController().navigate(R.id.action_homeFragment_to_searchFragment)
+        }
     }
 
     private fun observeCategoryMealLiveData() {
@@ -129,18 +139,18 @@ class HomeFragment : Fragment() {
     private fun onRandomMealClick() {
         binding.randomMeal.setOnClickListener {
             val intent = Intent(activity, MealActivity::class.java)
-            intent.putExtra(MEAL_ID, randomMeal.meals[0].idMeal)
-            intent.putExtra(MEAL_NAME, randomMeal.meals[0].strMeal)
-            intent.putExtra(MEAL_THUMB, randomMeal.meals[0].strMealThumb)
+            intent.putExtra(MEAL_ID, randomMeal.idMeal)
+            intent.putExtra(MEAL_NAME, randomMeal.strMeal)
+            intent.putExtra(MEAL_THUMB, randomMeal.strMealThumb)
             startActivity(intent)
         }
     }
 
     private fun observeRandomMeal() {
-        homeMvvm.observeRandomMealLivedata().observe(viewLifecycleOwner, object : Observer<MealList> {
-            override fun onChanged(value: MealList) {
+        homeMvvm.observeRandomMealLivedata().observe(viewLifecycleOwner, object : Observer<MealDetail> {
+            override fun onChanged(value: MealDetail) {
                 Glide.with(this@HomeFragment)
-                    .load(value.meals[0].strMealThumb)
+                    .load(value.strMealThumb)
                     .into(binding.imgRandomMeal)
                 this@HomeFragment.randomMeal = value
             }

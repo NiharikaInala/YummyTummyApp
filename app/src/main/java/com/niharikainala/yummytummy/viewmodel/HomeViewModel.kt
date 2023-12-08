@@ -18,18 +18,27 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class HomeViewModel(private val mealDatabase: MealDatabase) : ViewModel() {
-    private var randomMealLiveData = MutableLiveData<MealList>()
+    private var randomMealLiveData = MutableLiveData<MealDetail>()
     private var popularMealLiveData = MutableLiveData<MealsByCategoryList>()
     private var categoryMealLiveData = MutableLiveData<List<Category>>()
     private var favMealsLiveData = mealDatabase.mealDao().getAllMeals()
     private var bottomSheetLiveData = MutableLiveData<MealDetail>()
     private var searchMealLiveData = MutableLiveData<List<MealDetail>>()
 
-    fun getRandomMeal() {
+    private var saveStateRandomMeal : MealDetail ? = null
+//    init {
+//        getRandomMeal()
+//    }
+     fun getRandomMeal() {
+    saveStateRandomMeal?.let {
+        randomMeal -> randomMealLiveData.postValue(randomMeal)
+        return
+    }
         RetrofitInstance.api.getRandomMeal().enqueue(object : Callback<MealList> {
             override fun onResponse(call: Call<MealList>, response: Response<MealList>) {
                 if (response.body() != null) {
-                    randomMealLiveData.value = response.body()
+                    randomMealLiveData.value = response.body()!!.meals[0]
+                    saveStateRandomMeal = response.body()!!.meals[0]
                 } else {
                     return
                 }
@@ -128,7 +137,7 @@ class HomeViewModel(private val mealDatabase: MealDatabase) : ViewModel() {
         return popularMealLiveData
     }
 
-    fun observeRandomMealLivedata(): LiveData<MealList> {
+    fun observeRandomMealLivedata(): LiveData<MealDetail> {
         return randomMealLiveData
     }
 
