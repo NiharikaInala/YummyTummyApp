@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/homeFragment"
-        android:name="com.niharikainala.yummytummy.fragments.HomeFragment"
+        android:name="com.niharikainala.yummytummy.ui.fragments.HomeFragment"
         android:label="fragment_home"
         tools:layout="@layout/fragment_home" >
         <action
@@ -16,17 +16,17 @@
     </fragment>
     <fragment
         android:id="@+id/favoritesFragment"
-        android:name="com.niharikainala.yummytummy.fragments.FavoritesFragment"
+        android:name="com.niharikainala.yummytummy.ui.fragments.FavoritesFragment"
         android:label="fragment_favorites"
         tools:layout="@layout/fragment_favorites" />
     <fragment
         android:id="@+id/categoriesFragment"
-        android:name="com.niharikainala.yummytummy.fragments.CategoriesFragment"
+        android:name="com.niharikainala.yummytummy.ui.fragments.CategoriesFragment"
         android:label="fragment_categories"
         tools:layout="@layout/fragment_categories" />
     <fragment
         android:id="@+id/searchFragment"
-        android:name="com.niharikainala.yummytummy.fragments.SearchFragment"
+        android:name="com.niharikainala.yummytummy.ui.fragments.SearchFragment"
         android:label="fragment_search"
         tools:layout="@layout/fragment_search" />
 </navigation>

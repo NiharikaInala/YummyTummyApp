@@ -1,4 +1,4 @@
-package com.niharikainala.yummytummy.fragments.bottomsheet
+package com.niharikainala.yummytummy.ui.fragments.bottomsheet
 
 import android.content.Intent
 import android.os.Bundle
@@ -10,10 +10,10 @@ import androidx.lifecycle.Observer
 import com.bumptech.glide.Glide
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.niharikainala.yummytummy.R
-import com.niharikainala.yummytummy.activities.MainActivity
-import com.niharikainala.yummytummy.activities.MealActivity
+import com.niharikainala.yummytummy.ui.activities.MainActivity
+import com.niharikainala.yummytummy.ui.activities.MealActivity
 import com.niharikainala.yummytummy.databinding.FragmentBottomSheetBinding
-import com.niharikainala.yummytummy.fragments.HomeFragment
+import com.niharikainala.yummytummy.ui.fragments.HomeFragment
 import com.niharikainala.yummytummy.viewmodel.HomeViewModel
 
 private const val MEAL_ID = "param1"

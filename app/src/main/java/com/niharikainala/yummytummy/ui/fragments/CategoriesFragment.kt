@@ -1,5 +1,6 @@
-package com.niharikainala.yummytummy.fragments
+package com.niharikainala.yummytummy.ui.fragments
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,9 +10,12 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView.LayoutManager
 import com.niharikainala.yummytummy.R
-import com.niharikainala.yummytummy.activities.MainActivity
+import com.niharikainala.yummytummy.ui.activities.CategoryMealActivity
+import com.niharikainala.yummytummy.ui.activities.MainActivity
 import com.niharikainala.yummytummy.adapters.CategoriesAdapter
 import com.niharikainala.yummytummy.databinding.FragmentCategoriesBinding
+import com.niharikainala.yummytummy.ui.fragments.HomeFragment.Companion.CATEGORY_NAME
+import com.niharikainala.yummytummy.data.pojo.Category
 import com.niharikainala.yummytummy.viewmodel.HomeViewModel
 
 
@@ -38,6 +42,18 @@ class CategoriesFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         prepareRecylerView()
         observeCategoriesLiveData()
+        onCategoryMealClick()
+    }
+
+    private fun onCategoryMealClick() {
+        categoriesAdapter.onItemClicked(object : CategoriesAdapter.OnItemCategoryClicked{
+            override fun onClickListener(category: Category) {
+                val intent = Intent(activity, CategoryMealActivity::class.java)
+                intent.putExtra(CATEGORY_NAME, category.strCategory)
+                startActivity(intent)
+            }
+
+        })
     }
 
     private fun observeCategoriesLiveData(){

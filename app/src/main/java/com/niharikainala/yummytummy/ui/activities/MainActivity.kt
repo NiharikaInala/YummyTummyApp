@@ -1,4 +1,4 @@
-package com.niharikainala.yummytummy.activities
+package com.niharikainala.yummytummy.ui.activities
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
@@ -8,7 +8,7 @@ import androidx.navigation.ui.NavigationUI
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.niharikainala.yummytummy.R
 import com.niharikainala.yummytummy.databinding.ActivityMainBinding
-import com.niharikainala.yummytummy.db.MealDatabase
+import com.niharikainala.yummytummy.data.db.MealDatabase
 import com.niharikainala.yummytummy.viewmodel.HomeViewModel
 import com.niharikainala.yummytummy.viewmodel.HomeViewModelFactory
 

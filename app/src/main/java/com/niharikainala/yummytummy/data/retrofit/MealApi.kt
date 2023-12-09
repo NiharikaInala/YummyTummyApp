@@ -1,8 +1,8 @@
-package com.niharikainala.yummytummy.retrofit
+package com.niharikainala.yummytummy.data.retrofit
 
-import com.niharikainala.yummytummy.pojo.CategoryList
-import com.niharikainala.yummytummy.pojo.MealsByCategoryList
-import com.niharikainala.yummytummy.pojo.MealList
+import com.niharikainala.yummytummy.data.pojo.CategoryList
+import com.niharikainala.yummytummy.data.pojo.MealsByCategoryList
+import com.niharikainala.yummytummy.data.pojo.MealList
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Query

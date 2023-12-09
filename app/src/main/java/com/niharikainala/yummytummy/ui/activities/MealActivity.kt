@@ -1,4 +1,4 @@
-package com.niharikainala.yummytummy.activities
+package com.niharikainala.yummytummy.ui.activities
 
 import android.content.Intent
 import android.net.Uri
@@ -12,9 +12,9 @@ import androidx.lifecycle.ViewModelProviders
 import com.bumptech.glide.Glide
 import com.niharikainala.yummytummy.R
 import com.niharikainala.yummytummy.databinding.ActivityMealBinding
-import com.niharikainala.yummytummy.db.MealDatabase
-import com.niharikainala.yummytummy.fragments.HomeFragment
-import com.niharikainala.yummytummy.pojo.MealDetail
+import com.niharikainala.yummytummy.data.db.MealDatabase
+import com.niharikainala.yummytummy.ui.fragments.HomeFragment
+import com.niharikainala.yummytummy.data.pojo.MealDetail
 import com.niharikainala.yummytummy.viewmodel.MealViewModel
 import com.niharikainala.yummytummy.viewmodel.MealViewModelFactory
 

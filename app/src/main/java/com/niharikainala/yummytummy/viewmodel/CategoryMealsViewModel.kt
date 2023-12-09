@@ -4,9 +4,9 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.niharikainala.yummytummy.pojo.Meal
-import com.niharikainala.yummytummy.pojo.MealsByCategoryList
-import com.niharikainala.yummytummy.retrofit.RetrofitInstance
+import com.niharikainala.yummytummy.data.pojo.Meal
+import com.niharikainala.yummytummy.data.pojo.MealsByCategoryList
+import com.niharikainala.yummytummy.data.retrofit.RetrofitInstance
 import retrofit2.Call
 import retrofit2.Response
 import javax.security.auth.callback.Callback

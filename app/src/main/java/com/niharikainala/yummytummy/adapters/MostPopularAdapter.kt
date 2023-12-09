@@ -5,9 +5,9 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.niharikainala.yummytummy.databinding.PopularItemsBinding
-import com.niharikainala.yummytummy.pojo.Category
-import com.niharikainala.yummytummy.pojo.Meal
-import com.niharikainala.yummytummy.pojo.MealsByCategoryList
+import com.niharikainala.yummytummy.data.pojo.Category
+import com.niharikainala.yummytummy.data.pojo.Meal
+import com.niharikainala.yummytummy.data.pojo.MealsByCategoryList
 
 class MostPopularAdapter():RecyclerView.Adapter<MostPopularAdapter.PopularMealViewHolder>() {
     private lateinit var onItemClick: OnItemClick
@@ -57,6 +57,6 @@ class MostPopularAdapter():RecyclerView.Adapter<MostPopularAdapter.PopularMealVi
         fun onItemClick(meal: Meal)
     }
     interface  OnItemLongClick{
-        fun onItemLongClick(meal:Meal)
+        fun onItemLongClick(meal: Meal)
     }
 }

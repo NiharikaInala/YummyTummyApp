@@ -1,4 +1,4 @@
-package com.niharikainala.yummytummy.fragments
+package com.niharikainala.yummytummy.ui.fragments
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.snackbar.Snackbar
-import com.niharikainala.yummytummy.activities.MainActivity
+import com.niharikainala.yummytummy.ui.activities.MainActivity
 import com.niharikainala.yummytummy.adapters.MealsAdapter
 import com.niharikainala.yummytummy.databinding.FragmentFavoritesBinding
 import com.niharikainala.yummytummy.viewmodel.HomeViewModel

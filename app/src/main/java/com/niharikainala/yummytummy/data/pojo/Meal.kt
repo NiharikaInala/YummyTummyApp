@@ -1,4 +1,4 @@
-package com.niharikainala.yummytummy.pojo
+package com.niharikainala.yummytummy.data.pojo
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

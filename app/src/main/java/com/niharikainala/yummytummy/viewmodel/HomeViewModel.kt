@@ -5,13 +5,13 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.niharikainala.yummytummy.db.MealDatabase
-import com.niharikainala.yummytummy.pojo.Category
-import com.niharikainala.yummytummy.pojo.CategoryList
-import com.niharikainala.yummytummy.pojo.MealsByCategoryList
-import com.niharikainala.yummytummy.pojo.MealDetail
-import com.niharikainala.yummytummy.pojo.MealList
-import com.niharikainala.yummytummy.retrofit.RetrofitInstance
+import com.niharikainala.yummytummy.data.db.MealDatabase
+import com.niharikainala.yummytummy.data.pojo.Category
+import com.niharikainala.yummytummy.data.pojo.CategoryList
+import com.niharikainala.yummytummy.data.pojo.MealsByCategoryList
+import com.niharikainala.yummytummy.data.pojo.MealDetail
+import com.niharikainala.yummytummy.data.pojo.MealList
+import com.niharikainala.yummytummy.data.retrofit.RetrofitInstance
 import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
@@ -25,7 +25,7 @@ class HomeViewModel(private val mealDatabase: MealDatabase) : ViewModel() {
     private var bottomSheetLiveData = MutableLiveData<MealDetail>()
     private var searchMealLiveData = MutableLiveData<List<MealDetail>>()
 
-    private var saveStateRandomMeal : MealDetail ? = null
+    private var saveStateRandomMeal : MealDetail? = null
 //    init {
 //        getRandomMeal()
 //    }

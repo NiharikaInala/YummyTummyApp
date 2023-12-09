@@ -8,9 +8,12 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.niharikainala.yummytummy.databinding.MealItemBinding
-import com.niharikainala.yummytummy.pojo.MealDetail
+import com.niharikainala.yummytummy.data.pojo.Meal
+import com.niharikainala.yummytummy.data.pojo.MealDetail
 
 class MealsAdapter: RecyclerView.Adapter<MealsAdapter.FavoriteMealsViewHolder>() {
+
+     private lateinit var onMealClick: OnMealClick
 
     private val diffUtil = object : DiffUtil.ItemCallback<MealDetail>(){
         override fun areItemsTheSame(oldItem: MealDetail, newItem: MealDetail): Boolean {
@@ -20,6 +23,11 @@ class MealsAdapter: RecyclerView.Adapter<MealsAdapter.FavoriteMealsViewHolder>()
         override fun areContentsTheSame(oldItem: MealDetail, newItem: MealDetail): Boolean {
             return oldItem == newItem
         }
+
+    }
+
+    fun onMealClick(onMealClick:OnMealClick){
+        this.onMealClick = onMealClick
 
     }
 
@@ -43,6 +51,10 @@ class MealsAdapter: RecyclerView.Adapter<MealsAdapter.FavoriteMealsViewHolder>()
             .load(meal.strMealThumb)
             .into(holder.binding.imgMeal)
         holder.binding.tvMealName.text = meal.strMeal
+
+        holder.itemView.setOnClickListener {
+            onMealClick.onMealClick(meal)
+        }
     }
 
     override fun getItemCount(): Int {
@@ -51,5 +63,8 @@ class MealsAdapter: RecyclerView.Adapter<MealsAdapter.FavoriteMealsViewHolder>()
 
     inner class FavoriteMealsViewHolder(val binding:MealItemBinding):RecyclerView.ViewHolder(binding.root)
 
+    interface OnMealClick{
+        fun onMealClick(meal: MealDetail)
+    }
 
 }

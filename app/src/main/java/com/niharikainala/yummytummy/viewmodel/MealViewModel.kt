@@ -5,16 +5,16 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.niharikainala.yummytummy.db.MealDatabase
-import com.niharikainala.yummytummy.pojo.MealDetail
-import com.niharikainala.yummytummy.pojo.MealList
-import com.niharikainala.yummytummy.retrofit.RetrofitInstance
+import com.niharikainala.yummytummy.data.db.MealDatabase
+import com.niharikainala.yummytummy.data.pojo.MealDetail
+import com.niharikainala.yummytummy.data.pojo.MealList
+import com.niharikainala.yummytummy.data.retrofit.RetrofitInstance
 import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class MealViewModel(val mealDatabase:MealDatabase) : ViewModel() {
+class MealViewModel(val mealDatabase: MealDatabase) : ViewModel() {
 
     private var mealDetailLiveData = MutableLiveData<MealList>()
 

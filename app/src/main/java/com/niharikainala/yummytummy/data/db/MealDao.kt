@@ -1,4 +1,4 @@
-package com.niharikainala.yummytummy.db
+package com.niharikainala.yummytummy.data.db
 
 import androidx.lifecycle.LiveData
 import androidx.room.Dao
@@ -7,12 +7,12 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
-import com.niharikainala.yummytummy.pojo.MealDetail
+import com.niharikainala.yummytummy.data.pojo.MealDetail
 
 @Dao
 interface MealDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun upsertMeal(mealDetail:MealDetail)
+    suspend fun upsertMeal(mealDetail: MealDetail)
 
 //    @Update
 //    suspend fun updateMeal(mealDetail: MealDetail)

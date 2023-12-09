@@ -1,5 +1,6 @@
-package com.niharikainala.yummytummy.fragments
+package com.niharikainala.yummytummy.ui.fragments
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -11,9 +12,14 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.niharikainala.yummytummy.R
-import com.niharikainala.yummytummy.activities.MainActivity
+import com.niharikainala.yummytummy.ui.activities.MainActivity
+import com.niharikainala.yummytummy.ui.activities.MealActivity
 import com.niharikainala.yummytummy.adapters.MealsAdapter
 import com.niharikainala.yummytummy.databinding.FragmentSearchBinding
+import com.niharikainala.yummytummy.ui.fragments.HomeFragment.Companion.MEAL_ID
+import com.niharikainala.yummytummy.ui.fragments.HomeFragment.Companion.MEAL_NAME
+import com.niharikainala.yummytummy.ui.fragments.HomeFragment.Companion.MEAL_THUMB
+import com.niharikainala.yummytummy.data.pojo.MealDetail
 import com.niharikainala.yummytummy.viewmodel.HomeViewModel
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
@@ -45,6 +51,7 @@ class SearchFragment : Fragment() {
             searchMeals()
         }
         observeSearchLiveData()
+        onMealClick()
 
         var searchJob: Job? = null
         binding.edSearch.addTextChangedListener {
@@ -56,6 +63,19 @@ class SearchFragment : Fragment() {
             }
         }
 
+    }
+
+    private fun onMealClick(){
+        mealsAdapter.onMealClick(object : MealsAdapter.OnMealClick{
+            override fun onMealClick(meal: MealDetail) {
+                val intent = Intent(activity, MealActivity::class.java)
+                intent.putExtra(MEAL_ID, meal.idMeal)
+                intent.putExtra(MEAL_NAME, meal.strMeal)
+                intent.putExtra(MEAL_THUMB, meal.strMealThumb)
+                startActivity(intent)
+            }
+
+        })
     }
 
     private fun observeSearchLiveData() {

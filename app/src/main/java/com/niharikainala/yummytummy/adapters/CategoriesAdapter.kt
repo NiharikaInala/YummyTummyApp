@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.niharikainala.yummytummy.databinding.CategoryItemBinding
-import com.niharikainala.yummytummy.pojo.Category
+import com.niharikainala.yummytummy.data.pojo.Category
 
 class CategoriesAdapter : RecyclerView.Adapter<CategoriesAdapter.CategoriesViewHolder>() {
     private var categoryList = ArrayList<Category>()
@@ -40,7 +40,7 @@ class CategoriesAdapter : RecyclerView.Adapter<CategoriesAdapter.CategoriesViewH
     }
 
     interface OnItemCategoryClicked{
-        fun onClickListener(category:Category)
+        fun onClickListener(category: Category)
     }
 
     inner class CategoriesViewHolder(val binding: CategoryItemBinding) :

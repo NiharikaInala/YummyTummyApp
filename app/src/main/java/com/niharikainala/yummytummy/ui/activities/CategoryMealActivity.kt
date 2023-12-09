@@ -1,5 +1,6 @@
-package com.niharikainala.yummytummy.activities
+package com.niharikainala.yummytummy.ui.activities
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -9,7 +10,11 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.niharikainala.yummytummy.R
 import com.niharikainala.yummytummy.adapters.CategoryMealAdapter
 import com.niharikainala.yummytummy.databinding.ActivityCategoryMealBinding
-import com.niharikainala.yummytummy.fragments.HomeFragment
+import com.niharikainala.yummytummy.ui.fragments.HomeFragment
+import com.niharikainala.yummytummy.ui.fragments.HomeFragment.Companion.MEAL_ID
+import com.niharikainala.yummytummy.ui.fragments.HomeFragment.Companion.MEAL_NAME
+import com.niharikainala.yummytummy.ui.fragments.HomeFragment.Companion.MEAL_THUMB
+import com.niharikainala.yummytummy.data.pojo.Meal
 import com.niharikainala.yummytummy.viewmodel.CategoryMealsViewModel
 
 class CategoryMealActivity : AppCompatActivity() {
@@ -21,12 +26,26 @@ class CategoryMealActivity : AppCompatActivity() {
         binding = ActivityCategoryMealBinding.inflate(layoutInflater)
         setContentView(binding.root)
         prepareRecyclerView()
+        onMealClicked()
         mvvm = ViewModelProviders.of(this)[CategoryMealsViewModel::class.java]
 
         mvvm.getMealsByCategory(intent.getStringExtra(HomeFragment.CATEGORY_NAME)!!)
         mvvm.observeMealsLiveData().observe(this, Observer { mealsList ->
-            binding.tvCategoryCount.text = mealsList.size.toString()
+            binding.tvCategoryCount.text = "Meals Count: "+mealsList.size.toString()
             categoryMealAdapter.setMealList(mealsList)
+        })
+    }
+
+    private fun onMealClicked(){
+        categoryMealAdapter.setMealClickListner(object : CategoryMealAdapter.OnMealClick{
+            override fun onMealClick(meal: Meal) {
+                val intent = Intent(this@CategoryMealActivity, MealActivity::class.java)
+                intent.putExtra(MEAL_ID, meal.idMeal)
+                intent.putExtra(MEAL_NAME, meal.strMeal)
+                intent.putExtra(MEAL_THUMB, meal.strMealThumb)
+                startActivity(intent)
+            }
+
         })
     }
 

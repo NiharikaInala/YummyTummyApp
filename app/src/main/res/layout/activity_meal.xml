@@ -5,7 +5,7 @@
     android:id="@+id/details_root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activities.MealActivity">
+    tools:context=".ui.activities.MealActivity">
 
 
 
@@ -99,8 +99,8 @@
                 android:fontFamily="@font/myfont"
                 android:includeFontPadding="false"
                 android:textColor="@color/black"
-                android:textSize="18sp"
-                android:textStyle="bold"
+                android:textSize="16sp"
+                android:textStyle="normal"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/meal_info" />

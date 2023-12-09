@@ -1,4 +1,4 @@
-package com.niharikainala.yummytummy.db
+package com.niharikainala.yummytummy.data.db
 
 import androidx.room.TypeConverter
 import androidx.room.TypeConverters

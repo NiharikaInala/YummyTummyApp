@@ -15,13 +15,13 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
-            android:name=".activities.CategoryMealActivity"
+            android:name=".ui.activities.CategoryMealActivity"
             android:exported="false" />
         <activity
-            android:name=".activities.MealActivity"
+            android:name=".ui.activities.MealActivity"
             android:exported="false" />
         <activity
-            android:name=".activities.MainActivity"
+            android:name=".ui.activities.MainActivity"
             android:exported="true"
             android:label="@string/app_name"
             android:theme="@style/Theme.YummyTummy">

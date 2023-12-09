@@ -1,4 +1,4 @@
-package com.niharikainala.yummytummy.fragments
+package com.niharikainala.yummytummy.ui.fragments
 
 import android.content.Intent
 import android.os.Bundle
@@ -13,18 +13,18 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.niharikainala.yummytummy.R
-import com.niharikainala.yummytummy.activities.CategoryMealActivity
-import com.niharikainala.yummytummy.activities.MainActivity
-import com.niharikainala.yummytummy.activities.MealActivity
+import com.niharikainala.yummytummy.ui.activities.CategoryMealActivity
+import com.niharikainala.yummytummy.ui.activities.MainActivity
+import com.niharikainala.yummytummy.ui.activities.MealActivity
 import com.niharikainala.yummytummy.adapters.CategoriesAdapter
 import com.niharikainala.yummytummy.adapters.MostPopularAdapter
 import com.niharikainala.yummytummy.databinding.FragmentHomeBinding
-import com.niharikainala.yummytummy.fragments.bottomsheet.BottomSheetFragment
-import com.niharikainala.yummytummy.pojo.Category
-import com.niharikainala.yummytummy.pojo.Meal
-import com.niharikainala.yummytummy.pojo.MealDetail
-import com.niharikainala.yummytummy.pojo.MealList
-import com.niharikainala.yummytummy.pojo.MealsByCategoryList
+import com.niharikainala.yummytummy.ui.fragments.bottomsheet.BottomSheetFragment
+import com.niharikainala.yummytummy.data.pojo.Category
+import com.niharikainala.yummytummy.data.pojo.Meal
+import com.niharikainala.yummytummy.data.pojo.MealDetail
+import com.niharikainala.yummytummy.data.pojo.MealList
+import com.niharikainala.yummytummy.data.pojo.MealsByCategoryList
 import com.niharikainala.yummytummy.viewmodel.HomeViewModel
 
 
@@ -71,7 +71,7 @@ class HomeFragment : Fragment() {
         observeRandomMeal()
         onRandomMealClick()
 
-        homeMvvm.getPopularItems("beef")
+        homeMvvm.getPopularItems("chicken")
         observePopularItemLiveData()
         onPopularItemClick()
 
@@ -159,12 +159,11 @@ class HomeFragment : Fragment() {
 
     private fun observePopularItemLiveData() {
         homeMvvm.observePopularMealLiveData()
-            .observe(viewLifecycleOwner, object : Observer<MealsByCategoryList> {
-                override fun onChanged(value: MealsByCategoryList) {
-                    val meals = value.meals
-                    setMealsByCategoryAdapter(meals)
-                }
-            })
+            .observe(viewLifecycleOwner
+            ) { value ->
+                val meals = value.meals
+                setMealsByCategoryAdapter(meals)
+            }
     }
     private fun setMealsByCategoryAdapter(meals: List<Meal>) {
         popularItemsAdapter.setMeals(meals)
