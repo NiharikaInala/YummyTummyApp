@@ -2,6 +2,19 @@
 
 YummyTummy is a delightful Android app that simplifies the process of making delicious meals by providing comprehensive information and step-by-step instructions. The app is developed using Android Studio and the Kotlin programming language, leveraging various libraries and technologies to enhance the user experience.
 
+## Download
+
+You can download the latest version of the app using the link below:
+
+[Download APK](https://upload.app/download/yummytummy/com.niharikainala.yummytummy/767edf4c019a412ffefaa866d765e736a8fb260f54b28204b75b5414f49537c2)
+
+## Installation
+
+1. Download the APK file from the link above.
+2. Enable "Install from Unknown Sources" in your device settings.
+3. Open the APK file to start the installation process.
+4. Follow the on-screen instructions to complete the installation.
+
 ## Features
 
 - **Meal Information**: Get detailed information about your selected meal, including ingredients, nutritional facts, and more.
