@@ -61,7 +61,7 @@ To get started with YummyTummy, follow these simple steps:
 1. **Open the Project in Android Studio:**
    - Clone the repository to your local machine.
      ```bash
-     git clone https://github.com/your-username/YummyTummy.git
+     git clone https://github.com/NiharikaInala/YummyTummyApp.git
      ```
    - Open the project in Android Studio.
 
